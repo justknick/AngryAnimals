@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfpmp2v52c62g"]
+
+[ext_resource type="Texture2D" uid="uid://bl45pohkfn2iq" path="res://assets/player/parrot.png" id="1_uutr6"]
+[ext_resource type="Texture2D" uid="uid://cdpfnjb50j0wf" path="res://assets/env/elementStone025.png" id="2_0y1k7"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xmu7i"]
+bounce = 0.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nifvw"]
+radius = 35.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bfc83"]
+size = Vector2(216, 63)
+
+[node name="TestScene" type="Node2D"]
+position = Vector2(552, 144)
+
+[node name="Bird" type="RigidBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_xmu7i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bird"]
+shape = SubResource("CircleShape2D_nifvw")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bird"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_uutr6")
+
+[node name="Stone" type="StaticBody2D" parent="."]
+position = Vector2(11, 526)
+scale = Vector2(10, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stone"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_bfc83")
+
+[node name="Sprite2D" type="Sprite2D" parent="Stone"]
+rotation = -1.5708
+texture = ExtResource("2_0y1k7")
+
+[node name="Stone2" type="StaticBody2D" parent="."]
+position = Vector2(-576, 467)
+rotation = 1.5708
+scale = Vector2(10, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stone2"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_bfc83")
+
+[node name="Sprite2D" type="Sprite2D" parent="Stone2"]
+rotation = -1.5708
+texture = ExtResource("2_0y1k7")
+
+[node name="Stone3" type="StaticBody2D" parent="."]
+position = Vector2(620, 448)
+rotation = 1.5708
+scale = Vector2(10, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stone3"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_bfc83")
+
+[node name="Sprite2D" type="Sprite2D" parent="Stone3"]
+rotation = -1.5708
+texture = ExtResource("2_0y1k7")
