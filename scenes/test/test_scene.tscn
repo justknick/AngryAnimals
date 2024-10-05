@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfpmp2v52c62g"]
+[gd_scene load_steps=11 format=3 uid="uid://bfpmp2v52c62g"]
 
 [ext_resource type="Texture2D" uid="uid://bl45pohkfn2iq" path="res://assets/player/parrot.png" id="1_uutr6"]
 [ext_resource type="Texture2D" uid="uid://cdpfnjb50j0wf" path="res://assets/env/elementStone025.png" id="2_0y1k7"]
+[ext_resource type="Script" path="res://scenes/test/bird_2.gd" id="2_7oeqk"]
+[ext_resource type="Texture2D" uid="uid://ex3v5tw6b75b" path="res://assets/env/elementWood015.png" id="4_ppvj1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xmu7i"]
 bounce = 0.5
@@ -12,10 +14,19 @@ radius = 35.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bfc83"]
 size = Vector2(216, 63)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kkrt6"]
+size = Vector2(647, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmtj7"]
+size = Vector2(20, 58)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q7lo8"]
+radius = 126.842
+
 [node name="TestScene" type="Node2D"]
-position = Vector2(552, 144)
 
 [node name="Bird" type="RigidBody2D" parent="."]
+position = Vector2(288, 423)
 physics_material_override = SubResource("PhysicsMaterial_xmu7i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bird"]
@@ -24,6 +35,32 @@ shape = SubResource("CircleShape2D_nifvw")
 [node name="Sprite2D" type="Sprite2D" parent="Bird"]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_uutr6")
+
+[node name="Birdfalse" type="RigidBody2D" parent="."]
+position = Vector2(-1, 100)
+input_pickable = true
+physics_material_override = SubResource("PhysicsMaterial_xmu7i")
+gravity_scale = 10.0
+freeze = true
+script = ExtResource("2_7oeqk")
+
+[node name="Timer" type="Timer" parent="Birdfalse"]
+wait_time = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Birdfalse"]
+shape = SubResource("CircleShape2D_nifvw")
+
+[node name="Sprite2D" type="Sprite2D" parent="Birdfalse"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_uutr6")
+
+[node name="Label" type="Label" parent="Birdfalse"]
+offset_left = -8.0
+offset_top = -71.0
+offset_right = 47.0
+offset_bottom = -37.0
+theme_override_font_sizes/font_size = 24
+text = "false"
 
 [node name="Stone" type="StaticBody2D" parent="."]
 position = Vector2(11, 526)
@@ -62,3 +99,33 @@ shape = SubResource("RectangleShape2D_bfc83")
 [node name="Sprite2D" type="Sprite2D" parent="Stone3"]
 rotation = -1.5708
 texture = ExtResource("2_0y1k7")
+
+[node name="Plank" type="RigidBody2D" parent="."]
+position = Vector2(18, 438)
+rotation = 0.122173
+
+[node name="Sprite2D" type="Sprite2D" parent="Plank"]
+scale = Vector2(3, 0.4)
+texture = ExtResource("4_ppvj1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plank"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_kkrt6")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Plank"]
+position = Vector2(312, -40)
+shape = SubResource("RectangleShape2D_kmtj7")
+
+[node name="Pivot" type="StaticBody2D" parent="."]
+position = Vector2(12, 474)
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot"]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_uutr6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot"]
+scale = Vector2(0.15, 0.15)
+shape = SubResource("CircleShape2D_q7lo8")
+
+[connection signal="input_event" from="Birdfalse" to="Birdfalse" method="_on_input_event"]
+[connection signal="timeout" from="Birdfalse/Timer" to="Birdfalse" method="_on_timer_timeout"]
