@@ -1,19 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://dk5nt5y2dm1ns"]
+[gd_scene load_steps=9 format=3 uid="uid://dk5nt5y2dm1ns"]
 
 [ext_resource type="Script" path="res://scenes/player/bird.gd" id="1_loqs2"]
 [ext_resource type="Texture2D" uid="uid://bl45pohkfn2iq" path="res://assets/player/parrot.png" id="1_v8for"]
+[ext_resource type="Texture2D" uid="uid://mc8m4orr4o5k" path="res://assets/items/arrow.png" id="3_r0544"]
+[ext_resource type="AudioStream" uid="uid://rtc8gal1fj81" path="res://assets/audio/kick_wood.ogg" id="4_3gx1k"]
+[ext_resource type="AudioStream" uid="uid://drwc8oemvo6bo" path="res://assets/audio/stretch2.ogg" id="4_4ymba"]
+[ext_resource type="AudioStream" uid="uid://d0skvlnof5fh3" path="res://assets/audio/catapult.ogg" id="5_ci6hs"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cf7tq"]
+bounce = 0.2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhwpb"]
 radius = 25.0
 
 [node name="Bird" type="RigidBody2D"]
 input_pickable = true
+physics_material_override = SubResource("PhysicsMaterial_cf7tq")
 freeze = true
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_loqs2")
+
+[node name="ArrowSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_4ymba")
+
+[node name="LaunchSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ci6hs")
+
+[node name="ImpactSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_3gx1k")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="PlayerSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_v8for")
 
@@ -22,13 +41,21 @@ shape = SubResource("CircleShape2D_nhwpb")
 
 [node name="StateLabel" type="Label" parent="."]
 offset_left = -25.0
-offset_top = -52.0
+offset_top = -76.0
 offset_right = 27.0
-offset_bottom = -29.0
+offset_bottom = -53.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "debug"
 horizontal_alignment = 1
 vertical_alignment = 2
 
+[node name="Arrow" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_r0544")
+offset = Vector2(150, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_player_screen_exited"]
