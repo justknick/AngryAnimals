@@ -1,5 +1,0 @@
-extends Node2D
-
-enum PLAYER_STATE {READY, DRAG, RELEASE}
-
-var _state: PLAYER_STATE = PLAYER_STATE.READY

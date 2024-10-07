@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cn2b5esh11rc3"]
+[gd_scene load_steps=6 format=3 uid="uid://cn2b5esh11rc3"]
 
 [ext_resource type="Texture2D" uid="uid://b8ntn10ic1spu" path="res://assets/scene/colored_castle.png" id="1_kyitu"]
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_or7vn"]
 [ext_resource type="PackedScene" uid="uid://8vnyt0svfsct" path="res://scenes/game_object/water.tscn" id="2_8jf4j"]
-[ext_resource type="PackedScene" uid="uid://cxqfcvt78a871" path="res://scenes/game_object/cup.tscn" id="4_sb1q5"]
+[ext_resource type="PackedScene" uid="uid://b4bi66bpqax0v" path="res://scenes/scorer/scorer.tscn" id="4_1y5y1"]
+[ext_resource type="PackedScene" uid="uid://nvhl05nitb3s" path="res://scenes/ui/game_ui.tscn" id="5_y4ar0"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_or7vn")
@@ -13,17 +14,14 @@ position = Vector2(568, 314)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_kyitu")
 
+[node name="Scorer" parent="." instance=ExtResource("4_1y5y1")]
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="GameUI" parent="Hud" instance=ExtResource("5_y4ar0")]
+
 [node name="AnimalStart" type="Marker2D" parent="."]
 position = Vector2(281, 323)
 
 [node name="Water" parent="." instance=ExtResource("2_8jf4j")]
 position = Vector2(579, 630)
-
-[node name="Cup" parent="." instance=ExtResource("4_sb1q5")]
-position = Vector2(459, 451)
-
-[node name="Cup2" parent="." instance=ExtResource("4_sb1q5")]
-position = Vector2(683, 446)
-
-[node name="Cup3" parent="." instance=ExtResource("4_sb1q5")]
-position = Vector2(590, 258)

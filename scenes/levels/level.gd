@@ -1,12 +1,13 @@
 extends Node2D
 
 const BIRD = preload("res://scenes/player/bird.tscn")
+const MAIN = preload("res://scenes/main/main.tscn")
 
 @export var bird_scene: PackedScene
 
 @onready var animal_start: Marker2D = $AnimalStart
 
-var cup_count: int = 3
+#var cup_count: int = 3
 
 
 func _ready() -> void: 
@@ -16,8 +17,8 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	#respawn_player() 
-	pass
+	if Input.is_key_pressed(KEY_ESCAPE):
+		get_tree().change_scene_to_packed(MAIN)
 
 
 func spawn_player() -> void:
@@ -31,13 +32,8 @@ func respawn_player() -> void:
 		spawn_player()
 
 
-func count_cups() -> void:
-	#cup_count = get_n
-	pass
-
-
 func on_player_landed() -> void:
-	if cup_count > 0:
-		cup_count -= 1
-		print("remaining cups: ", cup_count)
+	#if cup_count > 0:
+		#cup_count -= 1
+		#print("remaining cups: ", cup_count)
 	respawn_player()

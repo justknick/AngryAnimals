@@ -5,6 +5,21 @@
 [ext_resource type="Script" path="res://scenes/game_object/cup.gd" id="1_ofcuw"]
 [ext_resource type="Texture2D" uid="uid://ex3v5tw6b75b" path="res://assets/env/elementWood015.png" id="2_ynd2i"]
 
+[sub_resource type="Animation" id="Animation_0544r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+
 [sub_resource type="Animation" id="Animation_civqm"]
 resource_name = "vanish"
 length = 0.9
@@ -37,28 +52,13 @@ tracks/1/keys = {
 }
 tracks/1/use_blend = true
 
-[sub_resource type="Animation" id="Animation_0544r"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.5, 0.5)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j0lge"]
 _data = {
 "RESET": SubResource("Animation_0544r"),
 "vanish": SubResource("Animation_civqm")
 }
 
-[node name="Cup" type="StaticBody2D"]
+[node name="Cup" type="StaticBody2D" groups=["cup"]]
 script = ExtResource("1_ofcuw")
 
 [node name="VanishSound" type="AudioStreamPlayer2D" parent="."]
