@@ -82,7 +82,7 @@ func set_drag() -> void:
 func drag_state_action() -> void: 
 	# checks if mouse is released 
 	if detect_action_release() == true:
-		set_new_state(PLAYER_STATE.RELEASE) 
+		set_new_state(PLAYER_STATE.RELEASE)
 	
 	var mouse_position = get_global_mouse_position()
 	_drag_vector = get_dragged_vector(mouse_position)
@@ -129,6 +129,7 @@ func play_arrow_sound() -> void:
 func detect_action_release() -> bool:
 	if _state == PLAYER_STATE.DRAG:
 		if Input.is_action_just_released("drag") == true:
+			SignalManager.on_drag_active.emit(false)
 			return true
 	return false
 
@@ -139,12 +140,12 @@ func get_impulse() -> Vector2:
 
 func defeat() -> void: 
 	queue_free()
-	print("defeated")
+	#print("defeated")
 
 
 func landed() -> void: 
 	queue_free()
-	print("landed")
+	#print("landed")
 	
 
 
@@ -157,6 +158,7 @@ func _on_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> vo
 	#print(event)
 	if _state == PLAYER_STATE.READY && Input.is_action_pressed("drag"):
 		set_new_state(PLAYER_STATE.DRAG)
+		SignalManager.on_drag_active.emit(true)
 
 
 func _on_sleeping_state_changed() -> void:

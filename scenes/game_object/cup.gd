@@ -18,5 +18,5 @@ func on_player_landed() -> void:
 
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	SignalManager.on_player_landed.emit()
-	print("emit on_player_landed")
+	#print("emit on_player_landed")
 	queue_free()

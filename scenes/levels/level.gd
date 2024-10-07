@@ -6,6 +6,7 @@ const MAIN = preload("res://scenes/main/main.tscn")
 @export var bird_scene: PackedScene
 
 @onready var animal_start: Marker2D = $AnimalStart
+@onready var launch_area: Node2D = $LaunchArea
 
 #var cup_count: int = 3
 
@@ -14,6 +15,7 @@ func _ready() -> void:
 	spawn_player()
 	SignalManager.on_player_defeat.connect(respawn_player)
 	SignalManager.on_player_landed.connect(on_player_landed)
+	SignalManager.on_drag_active.connect(on_drag_active)
 
 
 func _physics_process(_delta: float) -> void:
@@ -37,3 +39,10 @@ func on_player_landed() -> void:
 		#cup_count -= 1
 		#print("remaining cups: ", cup_count)
 	respawn_player()
+
+
+func on_drag_active(flag: bool) -> void: 
+	if flag == true:
+		launch_area.show()
+	elif flag == false:
+		launch_area.hide()
